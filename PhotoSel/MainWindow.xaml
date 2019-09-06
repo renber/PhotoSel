@@ -1,0 +1,35 @@
+﻿<Window x:Class="PhotoSel.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:u="clr-namespace:PhotoSel.Utils"
+        xmlns:b="clr-namespace:PhotoSel.Behaviors"
+        xmlns:c="clr-namespace:PhotoSel.Controls"
+        xmlns:cmd="clr-namespace:PhotoSel.Commands"
+        xmlns:local="clr-namespace:PhotoSel"
+        mc:Ignorable="d"
+        Title="PhotoSel" Height="768" Width="1024" WindowStartupLocation="CenterScreen" PreviewKeyDown="Window_PreviewKeyDown">
+    
+    <Window.InputBindings>
+        <cmd:DelayKeyBinding Key="Left" Command="{Binding PreviousPhotoCommand}" RepeatDelay="300" />
+        <cmd:DelayKeyBinding Key="Right" Command="{Binding NextPhotoCommand}" RepeatDelay="300" />
+
+        <KeyBinding Key="S" Command="{Binding ToggleSelectionCommand}"/>
+        <KeyBinding Key="Space" Command="{Binding ToggleSelectionCommand}"/>
+    </Window.InputBindings>
+
+    <Grid u:GridUtils.RowDefinitions="Auto,*,Auto" Margin="5">
+        <GroupBox Header="Source folder" Padding="5">
+            <c:SourceSelectionControl />
+        </GroupBox>
+        <GroupBox Grid.Row="1" Header="Photos" Padding="5">
+            <c:PhotoNavigatorControl />
+        </GroupBox>
+
+        <GroupBox Grid.Row="2" Header="Result" Margin="0 10 0 0" Padding="5">
+            <c:ResultExportControl />
+        </GroupBox>
+    </Grid>
+</Window>
