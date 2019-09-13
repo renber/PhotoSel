@@ -1,4 +1,5 @@
-﻿using PhotoSel.Services;
+﻿using PhotoSel.Commands;
+using PhotoSel.Services;
 using PhotoSel.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -30,18 +31,40 @@ namespace PhotoSel
         private void Window_PreviewKeyDown(object sender, KeyEventArgs e)
         {
             // ensure that bound keys invoke commands (when other controls have focus)
-
             foreach (InputBinding inputBinding in this.InputBindings)
             {
-                KeyGesture keyGesture = inputBinding.Gesture as KeyGesture;
-                if (keyGesture != null && keyGesture.Key == e.Key && keyGesture.Modifiers == Keyboard.Modifiers)
-                {                    
-                    if (inputBinding.Command != null && inputBinding.Command.CanExecute(inputBinding.CommandParameter))
+                if (inputBinding.Gesture is KeyGesture keyGesture)
+                {
+                    if (keyGesture is DelayKeyGesture delayGesture)
                     {
-                        inputBinding.Command.Execute(inputBinding.CommandParameter);
-                        e.Handled = true;
+                        if (delayGesture.KeysMatch(sender, e))
+                        {
+                            if (delayGesture.Matches(sender, e))
+                            {
+                                ExecuteInputCommand(inputBinding);
+                            }
+
+                            // handled even if not executed, to keep the delay
+                            e.Handled = true;
+                        }
+                    }
+                    else
+                    {
+                        if (keyGesture.Matches(this, e))
+                        {
+                            e.Handled = true;
+                            ExecuteInputCommand(inputBinding);                            
+                        }
                     }
                 }
+            }
+        }
+
+        private void ExecuteInputCommand(InputBinding inputBinding)
+        {
+            if (inputBinding.Command != null && inputBinding.Command.CanExecute(inputBinding.CommandParameter))
+            {
+                inputBinding.Command.Execute(inputBinding.CommandParameter);
             }
         }
     }

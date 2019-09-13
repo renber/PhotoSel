@@ -13,8 +13,8 @@
         Title="PhotoSel" Height="768" Width="1024" WindowStartupLocation="CenterScreen" PreviewKeyDown="Window_PreviewKeyDown">
     
     <Window.InputBindings>
-        <cmd:DelayKeyBinding Key="Left" Command="{Binding PreviousPhotoCommand}" RepeatDelay="300" />
-        <cmd:DelayKeyBinding Key="Right" Command="{Binding NextPhotoCommand}" RepeatDelay="300" />
+        <cmd:DelayKeyBinding Key="Left" Command="{Binding PreviousPhotoCommand}" RepeatDelay="500" />
+        <cmd:DelayKeyBinding Key="Right" Command="{Binding NextPhotoCommand}" RepeatDelay="500" />
 
         <KeyBinding Key="S" Command="{Binding ToggleSelectionCommand}"/>
         <KeyBinding Key="Space" Command="{Binding ToggleSelectionCommand}"/>
