@@ -1,4 +1,4 @@
-# PhotoSel
+<h1> <img src="doc/images/app_logo.png" width="64" height="64" /> PhotoSel</h1>
 
 A tool to select images from a larger collection in a focused, fuss-free way.
 
